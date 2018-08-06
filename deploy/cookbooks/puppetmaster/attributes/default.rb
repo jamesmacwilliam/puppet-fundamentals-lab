@@ -4,6 +4,7 @@ default['chef-ruby']['source']['dependencies'] = []
 
 default['puppetmaster']['repo'] = 'http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm'
 default['puppetmaster']['selinux'] = 'permissive'
+default['puppetmaster']['dns_alt_names'] = %w[puppet puppetmaster puppetmaster.jmac.com]
 default['puppetmaster']['deps'] = %w[
   git
   ntp
