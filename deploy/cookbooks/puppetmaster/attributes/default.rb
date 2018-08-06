@@ -3,10 +3,10 @@ default['chef-ruby']['source']['checksum'] = 'dac81822325b79c3ba9532b048c2123357
 default['chef-ruby']['source']['dependencies'] = []
 
 default['puppetmaster']['repo'] = 'http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm'
+default['puppetmaster']['selinux'] = 'permissive'
 default['puppetmaster']['deps'] = %w[
   git
   ntp
-  firewalld
   httpd
   httpd-devel
   mod_ssl
