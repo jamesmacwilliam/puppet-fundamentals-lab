@@ -6,5 +6,3 @@ description 'Installs/Configures puppetmaster'
 long_description 'Installs/Configures puppetmaster'
 version '0.1.0'
 chef_version '>= 12.14' if respond_to?(:chef_version)
-
-depends          'chef-ruby', '0.1.2'
