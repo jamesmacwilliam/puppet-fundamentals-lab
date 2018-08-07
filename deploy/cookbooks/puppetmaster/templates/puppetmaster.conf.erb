@@ -1,0 +1,49 @@
+# Example puppetmaster.conf configuration file for Pluralsight's Puppet Fundamentals for System Administrators course
+
+
+LoadModule passenger_module <%= node['puppetmaster']['gem_path'] %>/buildout/a
+pache2/mod_passenger.so
+<IfModule mod_passenger.c>
+  PassengerRoot <%= node['puppetmaster']['gem_path'] %>
+  PassengerDefaultRuby /usr/local/rbenv/shims/ruby
+</IfModule>IfModule>
+
+PassengerHighPerformance on
+PassengerMaxPoolSize 12
+PassengerPoolIdleTime 1500
+PassengerMaxRequests 1000
+PassengerStatThrottleRate 120
+
+Listen 8140
+
+<VirtualHost *:8140>        
+        SSLEngine on
+        SSLProtocol             ALL -SSLv2 -SSLv3
+        SSLCipherSuite          EDH+CAMELLIA:EDH+aRSA:EECDH+aRSA+AESGCM:EECDH+aRSA+SHA384:EECDH+aRSA+SHA256:EECDH:+CAMELLIA256:+AES256:+CAMELLIA128:+AES128:+SSLv3:!aNULL:!eNULL:!LOW:!3DES:!MD5:!EXP:!PSK:!DSS:!RC4:!SEED:!IDEA:!ECDSA:kEDH:CAMELLIA256-SHA:AES256-SHA:CAMELLIA128-SHA:AES128-SHA
+        SSLHonorCipherOrder     on
+
+        SSLCertificateFile      /var/lib/puppet/ssl/certs/puppetmaster.pem
+        SSLCertificateKeyFile   /var/lib/puppet/ssl/private_keys/puppetmaster.pem
+        SSLCertificateChainFile /var/lib/puppet/ssl/ca/ca_crt.pem
+        SSLCACertificateFile    /var/lib/puppet/ssl/ca/ca_crt.pem
+        SSLCARevocationFile     /var/lib/puppet/ssl/ca/ca_crl.pem
+        SSLVerifyClient optional
+        SSLVerifyDepth  1
+        SSLOptions +StdEnvVars +ExportCertData
+
+        RequestHeader unset X-Forwarded-For
+
+        RequestHeader set X-SSL-Subject %{SSL_CLIENT_S_DN}e
+        RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e
+        RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
+
+        DocumentRoot /usr/share/puppet/rack/puppetmasterd/public/
+        RackBaseURI /
+        <Directory /usr/share/puppet/rack/puppetmasterd/>
+                Options None
+                AllowOverride None
+                Order allow,deny
+                allow from all
+        </Directory>
+        PassengerAppRoot /usr/share/puppet/rack/puppetmasterd
+</VirtualHost>
