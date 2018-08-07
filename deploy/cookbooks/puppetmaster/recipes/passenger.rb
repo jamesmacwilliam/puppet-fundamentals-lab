@@ -44,3 +44,8 @@ template '/etc/httpd/conf.d/puppetmaster.conf' do
   mode  '777'
 end
 
+rbenv_script 'set puppetmaster.conf snippet replacement' do
+  rbenv_version node['puppetmaster']['passenger_ruby']
+  code "sed 's/SNIPPET/$(passenger-install-apache2-module --snippet)/g' /etc/httpd/conf.d/puppetmaster.conf"
+  user 'root'
+end

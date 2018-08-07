@@ -1,12 +1,8 @@
 # Example puppetmaster.conf configuration file for Pluralsight's Puppet Fundamentals for System Administrators course
 
 
-LoadModule passenger_module <%= node['puppetmaster']['gem_path'] %>/buildout/a
-pache2/mod_passenger.so
-<IfModule mod_passenger.c>
-  PassengerRoot <%= node['puppetmaster']['gem_path'] %>
-  PassengerDefaultRuby /usr/local/rbenv/shims/ruby
-</IfModule>IfModule>
+# find and replace here
+SNIPPET
 
 PassengerHighPerformance on
 PassengerMaxPoolSize 12
