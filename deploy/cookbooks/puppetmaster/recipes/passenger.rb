@@ -1,9 +1,5 @@
 %w[httpd httpd-devel].each { |pkg| package pkg }
 
-service 'httpd' do
-  action :start
-end
-
 rbenv_system_install 'system'
 rbenv_ruby node['puppetmaster']['passenger_ruby']
 
@@ -48,4 +44,8 @@ rbenv_script 'set puppetmaster.conf snippet replacement' do
   rbenv_version node['puppetmaster']['passenger_ruby']
   code "sed 's/SNIPPET/$(passenger-install-apache2-module --snippet)/g' /etc/httpd/conf.d/puppetmaster.conf"
   user 'root'
+end
+
+service 'httpd' do
+  action :start
 end
