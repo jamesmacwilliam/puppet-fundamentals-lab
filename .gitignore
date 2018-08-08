@@ -1,2 +1,2 @@
 *.vagrant
-deploy/cookbooks/puppetmaster/.delivery/*
+cookbooks/puppetmaster/.delivery/*

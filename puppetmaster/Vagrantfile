@@ -4,7 +4,7 @@
 # See README.md for details
 
 VAGRANTFILE_API_VERSION = '2'.freeze
-COOKBOOKS_PATH = './../deploy/cookbooks/'.freeze
+COOKBOOKS_PATH = './../cookbooks/'.freeze
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
