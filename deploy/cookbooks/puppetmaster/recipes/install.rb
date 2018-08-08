@@ -3,13 +3,16 @@ remote_file "#{Chef::Config[:file_cache_path]}/puppet-server.rpm" do
   action :create
 end
 
-rpm_package 'puppet-server' do
+package 'ruby' # puppet relies on this version of ruby
+
+package 'puppet-server' do
   source "#{Chef::Config[:file_cache_path]}/puppet-server.rpm"
   action :install
 end
 
-package 'ruby' # puppet relies on this version of ruby
-package 'puppet-server'
+yum_package 'puppet-server' do
+  action :install
+end
 
 template '/etc/puppet/puppet.conf' do
   source 'puppet.conf.erb'

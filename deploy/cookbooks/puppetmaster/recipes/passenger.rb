@@ -4,12 +4,10 @@ rbenv_system_install 'system'
 rbenv_ruby node['puppetmaster']['passenger_ruby']
 
 rbenv_gem 'rack' do
-  version '2.0.5'
   rbenv_version node['puppetmaster']['passenger_ruby']
 end
 
 rbenv_gem 'passenger' do
-  version '5.3.4'
   rbenv_version node['puppetmaster']['passenger_ruby']
 end
 
