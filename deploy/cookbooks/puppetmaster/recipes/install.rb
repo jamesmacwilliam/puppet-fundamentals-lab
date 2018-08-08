@@ -29,4 +29,5 @@ end
 execute 'generate puppet cert' do
   command 'timeout --preserve-status 5 puppet master --no-daemonize --verbose'
   user 'root'
+  not_if { ::File.directory?('/var/lib/puppet/ssl') }
 end

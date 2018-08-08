@@ -13,7 +13,8 @@ end
 
 rbenv_script 'install passenger' do
   rbenv_version node['puppetmaster']['passenger_ruby']
-  code 'passenger-install-apache2-module --languages ruby --no-compile --auto'
+  code 'passenger-install-apache2-module --languages ruby --auto'
+  not_if { ::File.exist? '/etc/httpd/conf.d/puppetmaster.conf' }
 end
 
 [
