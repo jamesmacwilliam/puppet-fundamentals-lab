@@ -29,10 +29,6 @@ end
   end
 end
 
-gem_path = "#{`gem env | grep '[-] INSTALLATION' | cut -d ':' -f 2 | awk '{$1=$1};1'`}/gems/passenger-5.3.4"
-
-node.default['puppetmaster']['gem_path'] = gem_path
-
 template '/etc/httpd/conf.d/puppetmaster.conf' do
   source 'puppetmaster.conf.erb'
   owner 'root'
@@ -40,9 +36,15 @@ template '/etc/httpd/conf.d/puppetmaster.conf' do
   mode  '777'
 end
 
+rbenv_script 'add snippet to temp file' do
+  rbenv_version node['puppetmaster']['passenger_ruby']
+  code 'passenger-install-apache2-module --snippet > snippet 2>&1'
+  user 'root'
+end
+
 rbenv_script 'set puppetmaster.conf snippet replacement' do
   rbenv_version node['puppetmaster']['passenger_ruby']
-  code "sed 's/SNIPPET/$(passenger-install-apache2-module --snippet)/g' /etc/httpd/conf.d/puppetmaster.conf"
+  code %Q{ruby -e "path = '/etc/httpd/conf.d/puppetmaster.conf'; IO.write(path, File.open(path) {|f| f.read.gsub('SNIPPET', File.read('snippet')) })"}
   user 'root'
 end
 
