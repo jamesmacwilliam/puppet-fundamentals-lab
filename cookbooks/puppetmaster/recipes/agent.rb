@@ -1,20 +1,4 @@
-execute 'add puppetmaster host' do
-  command 'echo 172.31.0.201 puppetmaster >> /etc/hosts'
-  user 'root'
-  not_if 'grep puppetmaster /etc/hosts'
-end
-
-remote_file "#{Chef::Config[:file_cache_path]}/puppet" do
-  source node['puppetmaster']['repo']
-  action :create
-end
-
-package 'ruby' # puppet relies on this version of ruby
-
-package 'puppet' do
-  source "#{Chef::Config[:file_cache_path]}/puppet"
-  action :install
-end
+include_recipe 'puppetmaster::remote'
 
 package 'puppet' do
   action :install
@@ -25,11 +9,6 @@ template '/etc/puppet/puppet.conf' do
   owner 'root'
   group 'root'
   mode  '777'
-end
-
-execute 'set security context' do
-  command 'chcon --reference=/etc/puppet/auth.conf /etc/puppet/puppet.conf'
-  user 'root'
 end
 
 execute 'generate puppet cert' do

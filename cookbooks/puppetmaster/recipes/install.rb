@@ -1,14 +1,4 @@
-remote_file "#{Chef::Config[:file_cache_path]}/puppet-server.rpm" do
-  source node['puppetmaster']['repo']
-  action :create
-end
-
-package 'ruby' # puppet relies on this version of ruby
-
-package 'puppet-server' do
-  source "#{Chef::Config[:file_cache_path]}/puppet-server.rpm"
-  action :install
-end
+include_recipe 'puppetmaster::remote'
 
 yum_package 'puppet-server' do
   action :install

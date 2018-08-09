@@ -7,11 +7,9 @@ VAGRANTFILE_API_VERSION = '2'.freeze
 COOKBOOKS_PATH = './../cookbooks/'.freeze
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
   config.vm.box = 'centos/7'
 
   config.vm.define 'puppetmaster' do |puppetmaster|
-
     puppetmaster.vm.hostname = 'puppetmaster'
 
     puppetmaster.vm.network 'private_network', ip: '172.31.0.201'

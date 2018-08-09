@@ -1,4 +1,4 @@
-name 'puppet'
+name 'puppetmaster'
 maintainer 'James Mac William'
 maintainer_email 'jimmy.macwilliam@gmail.com'
 license 'All Rights Reserved'
