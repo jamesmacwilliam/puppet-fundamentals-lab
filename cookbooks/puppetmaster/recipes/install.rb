@@ -31,3 +31,10 @@ execute 'generate puppet cert' do
   user 'root'
   not_if { ::File.exist?('/var/lib/puppet/ssl/private_keys/puppetmaster.pem') }
 end
+
+# note - don't do this on prod, this is a dev only hack
+cron 'sign all pending nodes every 12 seconds' do
+  minute '*'
+  command((['puppet cert sign --all'] * 4).join(' | sleep 10 | '))
+  user 'root'
+end
