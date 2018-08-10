@@ -1,3 +1,4 @@
+include_recipe 'puppetmaster::dependencies'
 include_recipe 'puppetmaster::remote'
 
 yum_package 'puppet-server' do
@@ -11,13 +12,22 @@ template '/etc/puppet/puppet.conf' do
   mode  '777'
 end
 
-execute 'set security context' do
-  command 'chcon --reference=/etc/puppet/fileserver.conf /etc/puppet/puppet.conf'
-  user 'root'
+template '/etc/puppet/autosign.conf' do
+  source 'autosign.conf.erb'
+  owner 'root'
+  group 'root'
+  mode  '777'
+end
+
+%w[puppet autosign].each do |file|
+  execute "set security context for #{file}.conf" do
+    command "chcon --reference=/etc/puppet/fileserver.conf /etc/puppet/#{file}.conf"
+    user 'root'
+  end
 end
 
 execute 'generate puppet cert' do
   command 'timeout --preserve-status 5 puppet master --no-daemonize --verbose'
   user 'root'
-  not_if { ::File.directory?('/var/lib/puppet/ssl') }
+  not_if { ::File.exist?('/var/lib/puppet/ssl/private_keys/puppetmaster.pem') }
 end

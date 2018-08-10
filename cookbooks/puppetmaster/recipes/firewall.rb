@@ -1,5 +1,5 @@
 execute 'set SELinux to permissive mode' do
-  command 'setenforce permissive'
+  command 'setenforce Permissive'
   user 'root'
 end
 

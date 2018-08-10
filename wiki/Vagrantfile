@@ -25,4 +25,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       'recipe[puppetmaster::agent]'
     ]
   end
+
+  config.vm.provision 'puppet_server' do |puppet|
+    puppet.puppet_server = 'puppetmaster'
+  end
 end

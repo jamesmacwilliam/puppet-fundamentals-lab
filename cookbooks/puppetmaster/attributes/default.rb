@@ -1,4 +1,3 @@
-default['puppetmaster']['passenger_ruby'] = '2.5.1'
 default['puppetmaster']['rhel_repo'] = 'http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm'
 default['puppetmaster']['deb_repo'] = 'https://apt.puppetlabs.com/puppetlabs-release-trusty.deb'
 
@@ -19,4 +18,10 @@ default['puppetmaster']['deps'] = %w[
   gcc-c++
   libcurl-devel
   openssl-devel
+  httpd
+  httpd-devel
+  ruby-devel
+  rubygems
+  libcurl-devel
+  zlib-devel
 ]

@@ -4,16 +4,20 @@ execute 'add puppetmaster host' do
   not_if 'grep puppetmaster /etc/hosts'
 end
 
-remote_file "#{Chef::Config[:file_cache_path]}/puppet" do
+if node[:platform_family].include?('rhel')
+  installer = :package
+  local = "puppet.rpm"
+else
+  installer = :dpkg_package
+  local = "puppet"
+end
+
+remote_file "#{Chef::Config[:file_cache_path]}/#{local}" do
   source node['puppetmaster']['repo']
   action :create
 end
 
-package 'ruby' # puppet relies on this version of ruby
-
-installer = node[:platform_family].include?('rhel') ? :package : :dpkg_package
-
 send(installer, 'puppet') do
-  source "#{Chef::Config[:file_cache_path]}/puppet"
+  source "#{Chef::Config[:file_cache_path]}/#{local}"
   action :install
 end

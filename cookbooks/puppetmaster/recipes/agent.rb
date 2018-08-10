@@ -1,3 +1,4 @@
+include_recipe 'puppetmaster::dependencies'
 include_recipe 'puppetmaster::remote'
 
 package 'puppet' do
@@ -9,6 +10,11 @@ template '/etc/puppet/puppet.conf' do
   owner 'root'
   group 'root'
   mode  '777'
+end
+
+execute 'enable puppet' do
+  command 'puppet agent --enable'
+  user 'root'
 end
 
 execute 'generate puppet cert' do
