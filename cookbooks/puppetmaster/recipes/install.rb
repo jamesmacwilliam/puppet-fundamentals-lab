@@ -1,4 +1,9 @@
 include_recipe 'puppetmaster::dependencies'
+
+service "ntpd" do
+  action :start
+end
+
 include_recipe 'puppetmaster::remote'
 
 yum_package 'puppet-server' do

@@ -10,12 +10,10 @@ default['puppetmaster']['repo'] = if node[:platform_family].include?('rhel')
 default['puppetmaster']['selinux'] = 'permissive'
 default['puppetmaster']['dns_alt_names'] = %w[puppet puppetmaster puppetmaster.jmac.com]
 default['puppetmaster']['environments'] = %w[production]
-default['puppetmaster']['deps'] = %w[
+default['puppetmaster']['rhel_deps'] = %w[
   git
   ntp
-  mod_ssl
   gcc
-  gcc-c++
   libcurl-devel
   openssl-devel
   httpd
@@ -24,4 +22,24 @@ default['puppetmaster']['deps'] = %w[
   rubygems
   libcurl-devel
   zlib-devel
+  rubygems
+  gcc-c++
+  mod_ssl
 ]
+default['puppetmaster']['deb_deps'] = %w[
+  git
+  ntp
+  gcc
+  openssl
+  apache2
+  ruby-dev
+  zlib1g-dev
+  g++
+  libcurl4-openssl-dev
+]
+
+default['puppetmaster']['deps'] = if node[:platform_family].include?('rhel')
+                                    default['puppetmaster']['rhel_deps']
+                                  else
+                                    default['puppetmaster']['deb_deps']
+                                  end
