@@ -1,4 +1,3 @@
-include_recipe 'puppetmaster::dependencies'
 include_recipe 'puppetmaster::remote'
 
 package 'puppet' do
