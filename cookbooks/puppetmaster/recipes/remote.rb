@@ -5,7 +5,7 @@ execute 'add puppetmaster host' do
 end
 
 if node[:platform_family].include?('rhel')
-  installer = :package
+  installer = :rpm_package
   local = "puppet5.rpm"
 else
   installer = :dpkg_package

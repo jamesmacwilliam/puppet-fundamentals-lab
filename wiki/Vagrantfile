@@ -28,6 +28,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision 'puppet_server' do |puppet|
     puppet.puppet_server = 'puppetmaster'
-    puppet.options = '-w 30' # wait for cron job to sign cert
   end
 end
