@@ -1,6 +1,6 @@
 default['puppetmaster']['environments_git_repo'] = 'jamesmacwilliam/puppet-lab-conf'
-default['puppetmaster']['rhel_repo'] = 'http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm'
-default['puppetmaster']['deb_repo'] = 'https://apt.puppetlabs.com/puppetlabs-release-trusty.deb'
+default['puppetmaster']['rhel_repo'] = 'https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm'
+default['puppetmaster']['deb_repo'] = 'https://apt.puppetlabs.com/puppet5-release-trusty.deb'
 
 default['puppetmaster']['repo'] = if node[:platform_family].include?('rhel')
                                     node['puppetmaster']['rhel_repo']

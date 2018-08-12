@@ -6,10 +6,10 @@ end
 
 if node[:platform_family].include?('rhel')
   installer = :package
-  local = "puppet.rpm"
+  local = "puppet5.rpm"
 else
   installer = :dpkg_package
-  local = "puppet"
+  local = "puppet5"
 end
 
 remote_file "#{Chef::Config[:file_cache_path]}/#{local}" do
