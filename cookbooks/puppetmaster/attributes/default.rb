@@ -1,3 +1,4 @@
+default['puppetmaster']['environments_git_repo'] = 'jamesmacwilliam/puppet-lab-conf'
 default['puppetmaster']['rhel_repo'] = 'http://yum.puppetlabs.com/puppetlabs-release-el-7.noarch.rpm'
 default['puppetmaster']['deb_repo'] = 'https://apt.puppetlabs.com/puppetlabs-release-trusty.deb'
 

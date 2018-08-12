@@ -1,11 +1,13 @@
-node['puppetmaster']['environments'].each do |environment|
-  execute "setup directories for #{environment} environment" do
-    command "mkdir -p /etc/puppet/environments/#{environment}/{modules,manifests}"
-    user 'root'
-  end
+execute 'purge environments' do
+  command 'rm -rf /etc/puppet/environments'
+  user 'root'
+end
 
-  execute "setup conf file for #{environment} environment" do
-    command "echo 'environment_timeout = 5s' > /etc/puppet/environments/#{environment}/environment.conf"
-    user 'root'
-  end
+git 'remote - environments' do
+  repository "https://github.com/#{node['puppetmaster']['environments_git_repo']}.git"
+  revision 'master'
+  destination '/etc/puppet/environments'
+  user 'puppet'
+  group 'puppet'
+  action :sync
 end
