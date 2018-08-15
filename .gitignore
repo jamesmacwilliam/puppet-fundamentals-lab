@@ -1,3 +1,4 @@
 *.vagrant
 cookbooks/puppetmaster/.delivery/*
-*.tf
+.terraform*
+*.tfstate*

@@ -20,3 +20,11 @@ this is a puppet server demo, puppetmaster is the puppet server, wiki and wikite
 ## Useful Commands
 - `puppet agent --version`, `puppet config print`
 - `puppet parser validate <some manifest file>` (validates that file has no syntax errors)
+
+ ## Teraform
+ - dependencies: aws account with an IAM user that has API access + an ec2 keypair
+
+ - `brew install terraform`
+ - `terraform init`
+ - `terraform plan` (will prompt for aws_key_path or you can set ENV var `TF_VAR_aws_key_path`)
+ - `terraform apply` or `terraform destroy` to provision/teardown
