@@ -16,3 +16,7 @@ this is a puppet server demo, puppetmaster is the puppet server, wiki and wikite
 
 - Puppet environments are managed via a separate git repo that is set via: `node['puppetmaster']['environments_git_repo']`
 - this folder should have at least 1 environment name + a manifests directory for at least one manifest file `some_file.pp` for puppet to configure our nodes with
+
+## Useful Commands
+- `puppet agent --version`, `puppet config print`
+- `puppet parser validate <some manifest file>` (validates that file has no syntax errors)

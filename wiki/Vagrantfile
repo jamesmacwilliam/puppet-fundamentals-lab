@@ -4,7 +4,6 @@
 # See README.md for details
 
 VAGRANTFILE_API_VERSION = '2'.freeze
-COOKBOOKS_PATH = './../cookbooks/'.freeze
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = 'centos/7'
@@ -15,15 +14,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     wiki.vm.network 'private_network', ip: '172.31.0.202'
   end
 
-  config.berkshelf.enabled = true
-  config.berkshelf.berksfile_path = "#{COOKBOOKS_PATH}/puppetmaster/Berksfile"
+  config.vm.provision :shell, path: '../install_agent.sh'
 
-  config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = COOKBOOKS_PATH
-
-    chef.run_list = [
-      'recipe[puppetmaster::agent]'
-    ]
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = './../environment/manifests'
+    puppet.module_path = './../environment/modules'
   end
 
   config.vm.provision 'puppet_server' do |puppet|
